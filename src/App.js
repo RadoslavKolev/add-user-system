@@ -20,10 +20,12 @@ const App = () => {
   };
 
   return (
-    <div>
+    //* If <></> (shorter syntax) doesn't work, we can use <React.Fragment></React.Fragment>
+    //* It removes the unnecessary div's
+    <>  
       <AddUser onAddUser={addUserHandler} />
       {usersList.length !== 0 && <UsersList users={usersList} />}
-    </div>
+    </>
   );
 }
 
