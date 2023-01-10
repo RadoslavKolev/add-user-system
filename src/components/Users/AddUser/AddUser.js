@@ -17,7 +17,8 @@ const AddUser = (props) => {
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0 || 
         Number(enteredAge) < 1) return;
 
-    console.log(enteredUsername, enteredAge);
+    // Lifting the state up (to App)
+    props.onAddUser(enteredUsername, enteredAge);
 
     // Resetting
     setEnteredUsername('');
