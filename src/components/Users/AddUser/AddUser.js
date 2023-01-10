@@ -3,19 +3,19 @@ import React, { useState } from 'react';
 import Card from '../../UI/Card/Card';
 import Button from '../../UI/Button/Button';
 import ErrorModal from '../../UI/ErrorModal/ErrorModal';
+import Wrapper from '../../Helpers/Wrapper/Wrapper';
 
 import classes from './AddUser.module.css';
 
 const AddUser = (props) => {
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredAge, setEnteredAge] = useState('');
-  const [error, setError] = useState();
+  const [error, setError] = useState(); // Initial state - undefined
 
   const addUserHandler = (e) => {
     e.preventDefault();
 
     // Validations for invalid input
-    // Number() can be replaced with '+'
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({
         title: 'Invalid input',
@@ -24,6 +24,7 @@ const AddUser = (props) => {
       return;
     } 
 
+    // Number() can be replaced with '+'
     if (Number(enteredAge) < 1) {
       setError({
         title: 'Invalid age',
@@ -53,7 +54,7 @@ const AddUser = (props) => {
   }
 
   return (
-    <div>
+    <Wrapper>
       {/* If error is not undefined - it will render the ErrorModal component */}
       {error && (
         <ErrorModal 
@@ -84,7 +85,7 @@ const AddUser = (props) => {
           <Button type='submit'>Add User</Button>
         </form>
       </Card>
-    </div>
+    </Wrapper>
   );
 };
 
