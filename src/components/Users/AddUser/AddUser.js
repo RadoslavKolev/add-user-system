@@ -39,8 +39,7 @@ const AddUser = (props) => {
         <input 
           type="text" 
           id="username" 
-          // Clearing the input after submit
-          value={enteredUsername}
+          value={enteredUsername} // Clearing the input after submit
           onChange={usernameChangeHandler} 
         />
 
@@ -48,8 +47,7 @@ const AddUser = (props) => {
         <input 
           type="number" 
           id="age"
-          // Clearing the input after submit
-          value={enteredAge} 
+          value={enteredAge} // Clearing the input after submit
           onChange={ageChangeHandler} 
         />
 
