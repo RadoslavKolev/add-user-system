@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import Card from '../../UI/Card/Card';
 import Button from '../../UI/Button/Button';
@@ -8,12 +8,17 @@ import Wrapper from '../../Helpers/Wrapper/Wrapper';
 import classes from './AddUser.module.css';
 
 const AddUser = (props) => {
-  const [enteredUsername, setEnteredUsername] = useState('');
-  const [enteredAge, setEnteredAge] = useState('');
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
   const [error, setError] = useState(); // Initial state - undefined
 
   const addUserHandler = (e) => {
     e.preventDefault();
+
+    // Values from the useRef hook (connected to the input fields)
+    const enteredUsername = nameInputRef.current.value;
+    const enteredAge = ageInputRef.current.value;
 
     // Validations for invalid input
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
@@ -36,17 +41,10 @@ const AddUser = (props) => {
     // Lifting the state up (to App)
     props.onAddUser(enteredUsername, enteredAge);
 
-    // Resetting
-    setEnteredUsername('');
-    setEnteredAge('');
-  };
-
-  const usernameChangeHandler = (e) => {
-    setEnteredUsername(e.target.value);
-  };
-
-  const ageChangeHandler = (e) => {
-    setEnteredAge(e.target.value);
+    // Resetting 
+    //! Don't use refs to manipulate the DOM
+    nameInputRef.current.value = '';
+    ageInputRef.current.value = '';
   };
 
   const errorHandler = () => {
@@ -70,16 +68,14 @@ const AddUser = (props) => {
           <input 
             type="text" 
             id="username" 
-            value={enteredUsername} // Clearing the input after submit
-            onChange={usernameChangeHandler} 
+            ref={nameInputRef}
           />
 
           <label htmlFor="age">Age (Years)</label>
           <input 
             type="number" 
             id="age"
-            value={enteredAge} // Clearing the input after submit
-            onChange={ageChangeHandler} 
+            ref={ageInputRef} 
           />
 
           <Button type='submit'>Add User</Button>
